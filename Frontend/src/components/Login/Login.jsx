@@ -6,6 +6,8 @@ import { setUserSlice } from '../../app/useContext/userContext/userSlice.js'
 
 
 function LoginForm() {
+
+
   const dispatch = useDispatch()
 
 
@@ -13,7 +15,10 @@ function LoginForm() {
     name:"Parveen Kashyap",
     username:"@parveen"
   }
-  dispatch(setUserSlice(par))
+
+  const btnDis = ()=>{
+    dispatch(setUserSlice(par))
+  }
  
   const navigate = useNavigate()
   const [user, setUser] = useState("")
@@ -30,7 +35,7 @@ function LoginForm() {
     axios.post("/api/v1/users/login",formData)
     .then( (res) => {
       const users = res.data.data.user
-      setUser(users)
+      dispatch(setUserSlice(users))
       navigate('/profile')
     })
     .catch( (err) => {

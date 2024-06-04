@@ -1,17 +1,25 @@
 import React from 'react'
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 function Profile() {
-  let user;
-  user = useSelector(state => state.user.user)
+  const navigate = useNavigate()
+  const {username,fullName,email} = useSelector(state => state.user.user)
+  useEffect(()=>{
+    
+  if (!(username || email) && !fullName){
+    navigate("/")
+  }
+  },[email,username])
   
-
+  console.log(username);
   return (
     <>
     <div className='w-full h-screen flex flex-col justify-center items-center text-4xl text-red-700'>
-      <h3>Username is {user.name}</h3> <br />
-      <h4>email is {user.username}</h4>
+      <h3>Username is {username} </h3> <br />
+      <h4>email is {email}</h4>
+      <h4>full Name is {fullName}</h4>
       
       </div>.
     </>
